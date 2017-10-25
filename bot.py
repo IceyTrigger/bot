@@ -53,10 +53,10 @@ async def latency(ctx):
 async def servers(ctx):
     """Lists all servers the bot is on"""
 msg = ""
-for server in self.bot.servers:
+for server in bot.servers:
     name = str(server) + "\n"
     msg += name
-await self.bot.say(msg)
+await bot.say(msg)
         
 @bot.command(pass_context = True, no_pm = True)
 async def announce(ctx, *, announcement: str):
