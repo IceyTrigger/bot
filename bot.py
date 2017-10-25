@@ -49,6 +49,15 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
+@commands.command(pass_context = True)
+async def servers(ctx):
+    """Lists all servers the bot is on"""
+msg = ""
+for server in ctx.bot.servers:
+    name = str(server) + "\n"
+    msg += name
+await ctx.bot.say(msg)
+        
 @bot.command(pass_context = True, no_pm = True)
 async def announce(ctx, *, announcement: str):
     if ctx.message.author.server_permissions.administrator:
