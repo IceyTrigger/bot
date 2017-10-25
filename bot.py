@@ -49,23 +49,6 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
-@bot.command(pass_context = True)
-async def shutdown(ctx):
-    if ctx.message.author.id == bot_owner:293159670040887297
-       ctx.bot.say("[y/n] Are you sure you want to stop the bot?\nIt will have to be started again manually.")
-        answer = await self.bot.wait_for_message(timeout = 30, author=ctx.message.author)
-        answer = str(answer)
-        if answer.lower() in ("y", "yes"):
-            await ctx.bot.say("brotat shutting down...")
-            await ctx.bot.logout()
-            exit()
-        elif answer.lower() in ("n", "no"):
-            await self.bot.say("Bot not stopped!")
-        else:
-            await self.bot.say("Invalid answer! Bot not stopped!")
-    else:
-        await self.bot.say("You don't have permission to do that!")
-        
 @bot.command(pass_context=True)
 async def echo(ctx, *, echo: str):
         '''Speaks for you'''
