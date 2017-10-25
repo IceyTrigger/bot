@@ -1,0 +1,1 @@
+start cmd.exe /k "python C:\Users\pasupati\Desktop\botstuff\rewrite\bot.py

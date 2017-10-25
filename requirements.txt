@@ -1,0 +1,8 @@
+git+https://github.com/Rapptz/discord.py@rewrite
+discord
+datetime
+asyncio
+aiohttp
+psutil
+wikipedia
+colorthief
