@@ -49,6 +49,16 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
+@bot.command(pass_context = True, no_pm = True)
+async def announce(ctx, *, announcement: str):
+    if ctx.message.author.server_permissions.administrator:
+     """Sends an announcement in the channel you use the command"""
+    embed=discord.Embed(title = "__Announcement__", description= announcement, color = 0xFF0000)
+    await bot.delete_message(ctx.message)
+    await bot.say(embed = embed)
+    if not ctx.message.author.server_permissions.administrator:
+        await bot.say("**You do not have permissions for this command!**")
+        
 @bot.command(pass_context=True)
 async def echo(ctx, *, echo: str):
         '''Speaks for you'''
