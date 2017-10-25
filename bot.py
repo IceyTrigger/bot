@@ -56,7 +56,7 @@ msg = ""
 for server in bot.servers:
     name = str(server) + "\n"
     msg += name
-await bot.say(msg)
+bot.say(msg)
         
 @bot.command(pass_context = True, no_pm = True)
 async def announce(ctx, *, announcement: str):
