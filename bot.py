@@ -59,6 +59,12 @@ async def announce(ctx, *, announcement: str):
     if not ctx.message.author.server_permissions.administrator:
         await bot.say("**You do not have permissions for this command!**")
         
+@bot.command()
+@commands.has_permissions(kick_members = True)
+async def ban(ctx, user: discord.Member):
+        await ctx.channel.send(f"Banned {user.name}.")
+        await user.ban()
+        
 @bot.command(pass_context=True)
 async def echo(ctx, *, echo: str):
         '''Speaks for you'''
