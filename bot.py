@@ -49,7 +49,7 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
-@client.command(pass_context = True, aliases=['sinfo', 'si'])
+@bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
 
         server = ctx.message.server
