@@ -75,6 +75,41 @@ async def serverinfo(ctx):
         embed.add_field(name = '__Created on__', value = server.created_at.__format__('Date - %d %B %Y at time - %H:%M:%S'));
         
         return await client.say(embed = embed);
+    
+@bot.command(pass_context = True,no_pm = True)
+async def msg(ctx,*,msg : str):
+        server = ctx.message.server
+        members_messaged = 0
+        '''Message everyone in the server.'''
+        if ctx.message.author == ctx.message.server.owner or ctx.message.author.id == owner:
+            for member in server.members:
+                try:
+                    await self.bot.send_message(member, msg)
+                    print(member)
+                except:
+                    print(member, "has DM's turned off")
+                members_messaged += 1 # fixed
+            await self.bot.say("Done. " + members_messaged + " members were DMed. (Prepare to have some angry people on your heels...)")
+        else:
+            await self.bot.say('Server owner only.')
+            
+@bot.command(pass_context = True,no_pm = True)
+async def msg2(ctx,*,msg : str):
+        server = ctx.message.server
+        members_messaged = 0
+        '''Message everyone in the server.'''
+        if ctx.message.author == ctx.message.server.owner or ctx.message.author.id == owner:
+            for member in server.members:
+                if len(member.roles) < 2:
+                    try:
+                        await self.bot.send_message(member, msg)
+                        print(member)
+                    except:
+                        print(member, "has DM's turned off")
+                    members_messaged += 1 # I know this works in java, not clear with python, just want to add 1 to members_messaged each time the loop is run            
+            await self.bot.say("Done. " + members_messaged + " members were DMed. (Prepare to have some angry people on your heels...)")
+        else:
+            await self.bot.say('Server owner only.')
         
 @bot.command(pass_context = True, no_pm = True)
 async def announce(ctx, *, announcement: str):
