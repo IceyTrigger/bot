@@ -13,6 +13,8 @@ import pip
 import wikipedia
 import random as rng
 
+bot.load_extension("cogs.mod")
+
 def cleanup_code(content):
     """Automatically removes code blocks from the code."""
     # remove ```py\n```
@@ -121,12 +123,6 @@ async def announce(ctx, *, announcement: str):
     if not ctx.message.author.server_permissions.administrator:
         await bot.say("**You do not have permissions for this command!**")
         
-@bot.command()
-@commands.has_permissions(kick_members = True)
-async def ban(ctx, user: discord.Member):
-        await ctx.channel.send(f"Banned {user.name}.")
-        await user.ban()
-        
 @bot.command(pass_context=True)
 async def echo(ctx, *, echo: str):
         '''Speaks for you'''
@@ -189,7 +185,7 @@ async def clearnicks(ctx):
             
 @bot.command()
 async def ud(*msg):
-    """Search words on Urban Dictionary"""
+    """Search words on UrbanDictionary"""
     word = ' '.join(msg)
     api = "http://api.urbandictionary.com/v0/define"
     async with aiohttp.ClientSession() as session:
@@ -262,12 +258,6 @@ async def google(ctx, *, query):
 
             self._last_google = msg
             await ctx.send(msg)
-        
-@bot.command()
-@commands.has_permissions(kick_members = True)
-async def kick(ctx, user: discord.Member):
-        await ctx.channel.send(f"RIP {user.name}.")
-        await user.kick()
         
 @bot.command(aliases=['del','p','prune'])
 async def purge(ctx, limit : int):
