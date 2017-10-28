@@ -262,7 +262,7 @@ async def purge(ctx, limit : int):
         '''Clean a number of messages'''
         await ctx.purge(limit=limit+1) # TODO: add more functionality
         
-@commands.command()
+@bot.command()
 async def choose(ctx, *choices: commands.clean_content):
         """Chooses between multiple choices.
         To denote multiple choices, you should use double quotes.
