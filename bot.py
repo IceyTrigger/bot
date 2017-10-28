@@ -12,7 +12,7 @@ import psutil
 import pip
 import wikipedia
 import random as rng
-
+bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
 bot.load_extension("cogs.mod")
 
 def cleanup_code(content):
@@ -36,8 +36,6 @@ def get_prefix(bot, message):
 
         # If we are in a guild, we allow for the user to mention us or use any of the prefixes in our list.
     return commands.when_mentioned_or(*prefixes)(bot, message)
-
-bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
 
 bot = commands.Bot(command_prefix=get_prefix)
 
