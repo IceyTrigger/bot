@@ -76,6 +76,22 @@ async def serverinfo(ctx):
         
         return await client.say(embed = embed);
     
+@bot.command(pass_context=True)
+async def join(ctx):
+    """Bot joins the voice channel"""
+    if bot.is_voice_connected(ctx.message.server):
+        return await bot.say("Already in a voice channel")
+    vc = await bot.join_voice_channel(ctx.message.author.voice_channel)
+    
+@bot.command(pass_context=True)
+async def playurl(ctx, url):
+    """Play a song from youtube. Input should be: ~play Insert URL Here"""
+    if bot.is_voice_connected(ctx.message.server):
+        return await bot.say("Already in a voice channel")
+    vc = await bot.join_voice_channel(ctx.message.author.voice_channel)
+    player = await vc.create_ytdl_player(url)
+    player.start()
+    
 @bot.command(pass_context = True,no_pm = True)
 async def msg(ctx,*,msg : str):
         server = ctx.message.server
