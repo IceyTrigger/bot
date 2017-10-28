@@ -444,25 +444,6 @@ async def _eval(ctx, *, body: str):
             else:
                 await ctx.send(f'```py\n{value}{ret}\n```')
 
-@bot.command(name='presence')
-@commands.is_owner()
-async def _set(ctx, Type=None,*,thing=None):
-  """Change the bot's discord game/stream!"""
-  if Type is None:
-    await ctx.send('Usage: .presence [game/stream] [message]')
-  else:
-    if Type.lower() == 'stream':
-      await bot.change_presence(game=discord.Game(name=thing,type=1,url='https://www.twitch.tv/youngboyivan%27),status=%27online%27)
-      await ctx.send(f'Set presence to. Streaming {thing}')
-    elif Type.lower() == 'game':
-      await bot.change_presence(game=discord.Game(name=thing))
-      await ctx.send(f'Set presence to Playing {thing}')
-    elif Type.lower() == 'clear':
-      await bot.change_presence(game=None)
-      await ctx.send('Cleared Presence')
-    else:
-      await ctx.send('Usage: .presence [game/stream] [message]')
-
 @bot.command()
 async def invite(ctx):
     await ctx.send('https://discordapp.com/oauth2/authorize?client_id=371320386693890048&scope=bot&permissions=2146958591')
