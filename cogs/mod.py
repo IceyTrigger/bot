@@ -17,7 +17,7 @@ class Mod:
 @commands.command()
 @commands.has_permissions(kick_members = True)
 async def kick(self, ctx, user: discord.Member):
-        await ctx.channel.send(f"RIP {user.name}.")
+        await ctx.channel.send(f"Close the door on the way out {user.name} :door:.")
         await user.kick()
 
 
