@@ -55,14 +55,14 @@ bot.remove_command("help")
 @bot.command(pass_context=True)
 async def help(ctx):
 
-    msg = open('cogs/utils/help.txt').read().replace('\\u200b','\u200b').splitlines()
+    ctx.send = open('cogs/utils/help.txt').read().replace('\\u200b','\u200b').splitlines()
     for i, line in enumerate(msg): 
         if line.strip().startswith('.'):
             x = line.strip().strip('.')
             x = ctx.prefix + x
             msg[i] = '`' + x + '`'
 
-    p = Pages(bot, message=ctx.message, entries=msg)
+    p = Pages(bot, message=ctx.send, entries=msg)
     p.embed.set_author(name='Help - SpikeBot Commands', icon_url=bot.user.avatar_url)
     p.embed.color = 0x00FFFF
     await p.paginate()
