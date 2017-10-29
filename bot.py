@@ -63,15 +63,15 @@ async def help(ctx):
             msg[i] = '`' + x + '`'
 
     p = Pages(bot, message=ctx.send, entries=msg)
-    p.embed.set_author(name='Help - SpikeBot Commands', icon_url=bot.user.avatar_url)
+    p.embed.set_author(name='Help - 'Brotat Commands', icon_url=bot.user.avatar_url)
     p.embed.color = 0x00FFFF
     await p.paginate()
 
 def owner_only():
-    return commands.check(lambda ctx: ctx.message.author == ctx.message.server.owner)
+    return command.check(lambda ctx: ctx.message.author == ctx.message.server.owner)
 
 def is_owner():
-    return commands.check(lambda ctx: ctx.message.author.id == owner)
+    return command.check(lambda ctx: ctx.message.author.id == owner)
         
 @bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
