@@ -63,7 +63,7 @@ async def help(ctx):
             msg[i] = '`' + x + '`'
 
     p = Pages(bot, message=ctx.send, entries=msg)
-    p.embed.set_author(name='Help - 'BrotatCommands', icon_url=bot.user.avatar_url)
+    p.embed.set_author(name='Help - Brotat Commands', icon_url=bot.user.avatar_url)
     p.embed.color = 0x00FFFF
     await p.paginate()
 
