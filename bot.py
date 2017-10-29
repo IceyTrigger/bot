@@ -76,6 +76,11 @@ async def serverinfo(ctx):
         
         return await client.say(embed = embed);
     
+@bot.event
+async def on_server_join(server):
+    await bot.send_message(server,
+        "**Hello!** *Thanks for inviting me to your server!*")
+    
 @bot.command(pass_context=True)
 async def join(ctx):
     """Bot joins the voice channel"""
