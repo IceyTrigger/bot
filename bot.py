@@ -50,21 +50,6 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
-@modset.command(no_pm=True)
-@commands.has_permissions(view_audit_log=True)
-async def modlog(ctx, *, enabled:str, channel:discord.TextChannel = None):
-        '''Setup the Moderation Log for your guild'''
-        enable = ["enabled","on","true","yes"]
-        if enabled.lower() in enable:
-            ctx.config.modlog_enabled = True
-            await ctx.send("Turned modlog on.")
-        else:
-            ctx.config.modlog_enabled = False
-            await ctx.send("Turned modlog off.")
-        if channel is not None:
-            ctx.config.modlog_channel = channel.id
-            await ctx.send(f"Set modlog channel to {self.bot.get_channel(channel.id)}")
-        
 @bot.command()
 @commands.has_permissions(kick_members = True)
 async def kick(ctx, user: discord.Member):
