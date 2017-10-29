@@ -50,29 +50,6 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
-bot.remove_command("help")
-
-@bot.command(pass_context=True)
-async def help(ctx):
-
-    ctx.send = open('cogs/utils/help.txt').read().replace('\\u200b','\u200b').splitlines()
-    for i, line in enumerate(msg): 
-        if line.strip().startswith('.'):
-            x = line.strip().strip('.')
-            x = ctx.prefix + x
-            msg[i] = '`' + x + '`'
-
-    p = Pages(bot, message=ctx.send, entries=msg)
-    p.embed.set_author(name='Help - Brotat Commands', icon_url=bot.user.avatar_url)
-    p.embed.color = 0x00FFFF
-    await p.paginate()
-
-def owner_only():
-    return command.check(lambda ctx: ctx.message.author == ctx.message.server.owner)
-
-def is_owner():
-    return command.check(lambda ctx: ctx.message.author.id == owner)
-        
 @bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
 
