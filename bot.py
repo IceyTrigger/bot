@@ -52,7 +52,7 @@ async def latency(ctx):
         
 @modset.command(no_pm=True)
 @commands.has_permissions(view_audit_log=True)
-    async def modlog(ctx, *, enabled:str, channel:discord.TextChannel = None):
+async def modlog(ctx, *, enabled:str, channel:discord.TextChannel = None):
         '''Setup the Moderation Log for your guild'''
         enable = ["enabled","on","true","yes"]
         if enabled.lower() in enable:
