@@ -50,6 +50,20 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
+@bot.command()
+@commands.has_permissions(kick_members = True)
+async def kick(ctx, user: discord.Member):
+        await ctx.channel.send(f"Bye! {user.name}.")
+        await user.kick()
+
+
+
+@bot.command()
+@commands.has_permissions(kick_members = True)
+async def ban(ctx, user: discord.Member):
+        await ctx.channel.send(f"Banned {user.name} close the door on the way out :door: .")
+        await user.ban()
+        
 @bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
 
