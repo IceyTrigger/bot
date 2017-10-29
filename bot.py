@@ -12,6 +12,7 @@ import psutil
 import pip
 import wikipedia
 import random as rng
+from cogs.utils.paginator import Pages
 bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
 bot.load_extension("cogs.mod")
 
@@ -71,8 +72,6 @@ def owner_only():
 
 def is_owner():
     return commands.check(lambda ctx: ctx.message.author.id == owner)
-
-
         
 @bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
