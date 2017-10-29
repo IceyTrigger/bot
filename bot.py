@@ -76,72 +76,6 @@ async def serverinfo(ctx):
         embed.add_field(name = '__Created on__', value = server.created_at.__format__('Date - %d %B %Y at time - %H:%M:%S'));
         
         return await client.say(embed = embed);
-    
-@bot.event
-async def on_server_join(server):
-    await bot.send_message(server,
-        "**Hello!** *Thanks for inviting me to your server!*")
-    
-@bot.command(pass_context=True)
-async def join(ctx):
-    """Bot joins the voice channel"""
-    if bot.is_voice_connected(ctx.message.server):
-        return await bot.say("Already in a voice channel")
-    vc = await bot.join_voice_channel(ctx.message.author.voice_channel)
-    
-@bot.command(pass_context=True)
-async def playurl(ctx, url):
-    """Play a song from youtube. Input should be: ~play Insert URL Here"""
-    if bot.is_voice_connected(ctx.message.server):
-        return await bot.say("Already in a voice channel")
-    vc = await bot.join_voice_channel(ctx.message.author.voice_channel)
-    player = await vc.create_ytdl_player(url)
-    player.start()
-    
-@bot.command(pass_context = True,no_pm = True)
-async def msg(ctx,*,msg : str):
-        server = ctx.message.server
-        members_messaged = 0
-        '''Message everyone in the server.'''
-        if ctx.message.author == ctx.message.server.owner or ctx.message.author.id == owner:
-            for member in server.members:
-                try:
-                    await self.bot.send_message(member, msg)
-                    print(member)
-                except:
-                    print(member, "has DM's turned off")
-                members_messaged += 1 # fixed
-            await self.bot.say("Done. " + members_messaged + " members were DMed. (Prepare to have some angry people on your heels...)")
-        else:
-            await self.bot.say('Server owner only.')
-            
-@bot.command(pass_context = True,no_pm = True)
-async def msg2(ctx,*,msg : str):
-        server = ctx.message.server
-        members_messaged = 0
-        '''Message everyone in the server.'''
-        if ctx.message.author == ctx.message.server.owner or ctx.message.author.id == owner:
-            for member in server.members:
-                if len(member.roles) < 2:
-                    try:
-                        await self.bot.send_message(member, msg)
-                        print(member)
-                    except:
-                        print(member, "has DM's turned off")
-                    members_messaged += 1 # I know this works in java, not clear with python, just want to add 1 to members_messaged each time the loop is run            
-            await self.bot.say("Done. " + members_messaged + " members were DMed. (Prepare to have some angry people on your heels...)")
-        else:
-            await self.bot.say('Server owner only.')
-        
-@bot.command(pass_context = True, no_pm = True)
-async def announce(ctx, *, announcement: str):
-    if ctx.message.author.server_permissions.administrator:
-     """Sends an announcement in the channel you use the command"""
-    embed=discord.Embed(title = "__Announcement__", description= announcement, color = 0xFF0000)
-    await bot.delete_message(ctx.message)
-    await bot.say(embed = embed)
-    if not ctx.message.author.server_permissions.administrator:
-        await bot.say("**You do not have permissions for this command!**")
         
 @bot.command(pass_context=True)
 async def echo(ctx, *, echo: str):
@@ -158,50 +92,6 @@ async def echo(ctx, *, echo: str):
             except:
                 pass
             await ctx.send(echo)
-            
-@bot.command(pass_context=True, hidden=True)
-async def botleavep(ctx, serverid: str):
-    '''Leave server(BOT OWNER ONLY)
-    example:
-    -----------
-    :leaveserver 102817255661772800
-    '''
-    server = bot.get_server(serverid)
-    if server:
-        await bot.leave_server(server)
-        msg = ':door:  {} = Left server!'.format(server.name)
-    else:
-        msg = ':x: Could not find the ID of that server/Forgot to say ID of server!'
-        return await bot.say(msg)
-    await bot.say(msg)
-            
-@bot.command(pass_context = True)
-async def yetify(ctx):
-    try:
-        for member in ctx.message.server.members:
-            if member is not ctx.message.server.owner:
-                if member.nick is not None:
-                    name = member.nick
-                    await bot.change_nickname(member, "Yeti {}".format(name))
-                else:
-                    name = member.name
-                    await bot.change_nickname(member, "Yeti {}".format(name))
-        await bot.say("This server has been Yetified!")
-    except Exception as e:
-        if 'Privilege is too low' in str(e):
-            return await bot.say("Permissions too low!")
-        
-@bot.command(pass_context = True)
-async def clearnicks(ctx):
-    try:
-        for member in ctx.message.server.members:
-            if member is not ctx.message.server.owner:
-                name = member.name
-                await bot.change_nickname(member, name)
-        await bot.say("This server's nicknames have been cleared!")
-    except Exception as e:
-        if 'Privilege is too low' in str(e):
-            return await bot.say("Permissions too low!")
             
 @bot.command()
 async def ud(*msg):
@@ -225,64 +115,23 @@ async def ud(*msg):
                 embed.add_field(name="Examples:", value=response['list'][0]["example"][:1000])
                 embed.set_footer(text="Tags: " + ', '.join(response['tags']))
                 await bot.say(embed=embed)
-            
-@bot.command()
-async def baninfo(ctx, *, name_or_id):
-        '''Check the reason of a ban from the audit logs.'''
-        ban = await ctx.get_ban(name_or_id)
-        em = discord.Embed()
-        em.color = await ctx.get_dominant_color(ban.user.avatar_url)
-        em.set_author(name=str(ban.user), icon_url=ban.user.avatar_url)
-        em.add_field(name='Reason', value=ban.reason or 'None')
-        em.set_thumbnail(url=ban.user.avatar_url)
-        em.set_footer(text=f'User ID: {ban.user.id}')
-
-        await ctx.send(embed=em)
+                
+@commands.command(no_pm=True)
+async def clean(ctx, limit: int = 15):
+        '''Clean a number of bot's messages'''
+        await ctx.message.delete()
+        deleted = await ctx.channel.purge(limit=limit + 1, check=lambda m: m.author == ctx.bot.user)
+        await ctx.channel.send(f'Successfully deleted {len(deleted)} message(s)', delete_after=5)
         
-@bot.command()
-async def clean(ctx, limit : int=15):
-        '''Clean a number of your own messages'''
-        await ctx.purge(limit=limit+1, check=lambda m: m.author == ctx.author)
-        
-@bot.command(aliases=['g'])
-async def google(ctx, *, query):
-        """
-        Searches google and gives you top result.
-        Written By Rapptz
-        """
-        await ctx.trigger_typing()
-        try:
-            card, entries = await ctx.get_google_entries(ctx, query)
-        except RuntimeError as e:
-            await ctx.send(str(e))
-        else:
-            if card:
-                value = '\n'.join(entries[:3])
-                if value:
-                    card.add_field(name='Search Results', value=value, inline=False)
-                return await ctx.send(embed=card)
-
-            if len(entries) == 0:
-                return await ctx.send('No results found... sorry.')
-
-            next_two = entries[1:3]
-            first_entry = entries[0]
-            if first_entry[-1] == ')':
-                first_entry = first_entry[:-1] + '%29'
-
-            if next_two:
-                formatted = '\n'.join(map(lambda x: '<%s>' % x, next_two))
-                msg = '{}\n\n**See also:**\n{}'.format(first_entry, formatted)
-            else:
-                msg = first_entry
-
-            ctx._last_google = msg
-            await ctx.send(msg)
-        
-@bot.command(aliases=['del','p','prune'])
-async def purge(ctx, limit : int):
+@bot.command(aliases=['del', 'p', 'prune'], bulk=True)
+async def purge(ctx, limit: int):
         '''Clean a number of messages'''
-        await ctx.purge(limit=limit+1) # TODO: add more functionality
+        await ctx.message.delete()
+        deleted = await ctx.channel.purge(limit=limit + 1)
+        await ctx.channel.send(f'Successfully deleted {len(deleted)} message(s)', delete_after=6)
+        
+        
+
         
 @bot.command()
 async def choose(ctx, *choices: commands.clean_content):
