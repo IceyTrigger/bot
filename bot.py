@@ -49,23 +49,6 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
-@bot.command(pass_context=True)
-async def help(ctx):
-    await bot.delete_message(ctx.message)
-
-    msg = open('cogs/utils/help.txt').read().replace('\\u200b','\u200b').splitlines()
-    for i, line in enumerate(msg): 
-        if line.strip().startswith('.'):
-            x = line.strip().strip('.')
-            x = ctx.prefix + x
-            msg[i] = '`' + x + '`'
-
-    p = Pages(bot, message=ctx.message, entries=msg)
-    p.embed.set_author(name='Help - SpikeBot Commands', icon_url=bot.user.avatar_url)
-    p.embed.color = 0x00FFFF
-    await p.paginate()
-
-        
 @bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
 
