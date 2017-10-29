@@ -255,7 +255,7 @@ async def clean(ctx, limit : int=15):
         '''Clean a number of your own messages'''
         await ctx.purge(limit=limit+1, check=lambda m: m.author == ctx.author)
         
-@commands.command(aliases=['g'])
+@bot.command(aliases=['g'])
 async def google(ctx, *, query):
         """
         Searches google and gives you top result.
