@@ -251,7 +251,7 @@ async def google(ctx, *, query):
         """
         await ctx.trigger_typing()
         try:
-            card, entries = await self.get_google_entries(ctx, query)
+            card, entries = await ctx.get_google_entries(ctx, query)
         except RuntimeError as e:
             await ctx.send(str(e))
         else:
