@@ -275,7 +275,7 @@ async def google(ctx, *, query):
             else:
                 msg = first_entry
 
-            self._last_google = msg
+            ctx._last_google = msg
             await ctx.send(msg)
         
 @bot.command(aliases=['del','p','prune'])
