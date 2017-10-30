@@ -50,7 +50,7 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
-@commands.command(pass_context = True)
+@bot.command(pass_context = True)
 async def shutdown(ctx):
     if ctx.message.author.id == bot_owner:293159670040887297
             await bot.say("[y/n] Are you sure you want to stop the bot?\nIt will have to be started again manually.")
