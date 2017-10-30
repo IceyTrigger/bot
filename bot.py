@@ -60,11 +60,11 @@ async def shutdown(ctx):
             await bot.say("Brotat shutting down...")
             await bot.logout()
             exit()
-        elif answer.lower() in ("n", "no"):
+        else answer.lower() in ("n", "no"):
             await bot.say("Bot not stopped!")
         else:
             await bot.say("Invalid answer! Bot not stopped!")
-    else:
+        else:
             await bot.say("You don't have permission to do that!")
         
 @bot.command()
