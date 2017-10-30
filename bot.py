@@ -346,8 +346,7 @@ async def shutdown(self, ctx):
             await self.bot.say("brotat shutting down...")
             await self.bot.logout()
             exit()
-        else: answer.lower() in ("n", "no")
-            
+        else: answer.lower() in ("n", "no") 
         else:
             await self.bot.say("Invalid answer! Bot not stopped!")
         else:
