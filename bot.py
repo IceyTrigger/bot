@@ -259,7 +259,7 @@ msg = ""
 for server in bot.servers:
     name = str(server) + "\n"
     msg += name
-await bot.say(msg)
+await ctx.bot.say(msg)
 
 @bot.command(aliases=['wikipedia'], pass_context=True)
 async def wiki(ctx, *, search: str = None):
