@@ -280,6 +280,22 @@ async def wiki(ctx, *, search: str = None):
         textList = textwrap.wrap(wik.content, 500, break_long_words=True, replace_whitespace=False)
         emb.add_field(name="Wikipedia Results", value=textList[0] + "...")
         await ctx.send(embed=emb)
+        
+@bot.command(pass_context=True, hidden=True)
+async def botleavep(ctx, serverid: str):
+    '''Leave server(BOT OWNER ONLY)
+    example:
+    -----------
+    :leaveserver 102817255661772800
+    '''
+    server = bot.get_server(serverid)
+    if server:
+        await bot.leave_server(server)
+        msg = ':door:  {} = Left server!'.format(server.name)
+    else:
+        msg1 = ':x: Could not find the ID of that server/Forgot to say ID of server!'
+       return await bot.say(msg)
+       await bot.say(msg)
 
 
 @bot.command(pass_context=True, hidden=True, name='eval')
@@ -335,22 +351,6 @@ async def invite(ctx):
 class MainCommands():
     def __init__(self, bot):
         self.bot = bot
-        
-@bot.command(pass_context = True)
-async def shutdown(self, ctx):
-    if ctx.message.author.id == 293159670040887297:
-        await self .bot.say("[y/n] Are you sure you want to stop the bot?\nIt will have to be started again manually.")
-        answer = await self.bot.wait_for_message(timeout = 30, author=ctx.message.author)
-        answer = str(answer)
-        if answer.lower() in ("y", "yes"):
-            await self.bot.say("brotat shutting down...")
-            await self.bot.logout()
-            exit()
-        else: answer.lower() in ("n", "no") 
-        else:
-            await self.bot.say("Invalid answer! Bot not stopped!")
-        else:
-            await self.bot.say("You don't have permission to do that!")
 
     @bot.event
     async def on_ready():
