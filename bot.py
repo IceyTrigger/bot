@@ -55,14 +55,18 @@ async def latency(ctx):
 async def kick(ctx, user: discord.Member):
         await ctx.channel.send(f"Bye! {user.name}.")
         await user.kick()
-
-
-
+        
 @bot.command()
 @commands.has_permissions(kick_members = True)
 async def ban(ctx, user: discord.Member):
         await ctx.channel.send(f"Banned {user.name} close the door on the way out :door: .")
         await user.ban()
+        
+@bot.command(pass_context=True)
+async def stream(ctx, *, name:str):
+    """Sets the streaming status with the specified name"""
+    await bot.change_presence(game=discord.Game(name=name, type=1, url="https://www.twitch.tv/pesohere"))
+    await ctx.send("Now streaming `{}`".format(name))
         
 @bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
