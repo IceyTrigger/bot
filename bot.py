@@ -54,7 +54,7 @@ async def latency(ctx):
 async def shutdown(ctx):
     if ctx.message.author.id == bot_owner:293159670040887297
             await bot.say("[y/n] Are you sure you want to stop the bot?\nIt will have to be started again manually.")
-        answer = await bot.wait_for_message(timeout = 30, author=ctx.message.author)
+   answer = await bot.wait_for_message(timeout = 30, author=ctx.message.author)
         answer = str(answer)
         if answer.lower() in ("y", "yes"):
             await bot.say("Brotat shutting down...")
