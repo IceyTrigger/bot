@@ -251,16 +251,6 @@ async def ctdev(ctx, *, pmessage : str = None):
             await ctx.message.delete()
 #            return await ctx.send(ctx.author.mention + " I have PMed my creator your feedback! Thank you for the help!")
 
-
-@bot.command(pass_context = True)
-async def servers(ctx):
-    """Lists all servers the bot is on"""
-msg = ""
-for server in bot.servers:
-    name = str(server) + "\n"
-    msg += name
-await ctx.bot.say(msg)
-
 @bot.command(aliases=['wikipedia'], pass_context=True)
 async def wiki(ctx, *, search: str = None):
         '''Wikipedia ok!!!'''
