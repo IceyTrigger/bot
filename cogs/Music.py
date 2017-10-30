@@ -39,8 +39,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.title = data.get('title')
         self.url = data.get('url')
 
-    @classmethod
-    async def from_url(cls, url, *, loop=None):
+@classmethod
+async def from_url(cls, url, *, loop=None):
         loop = loop or asyncio.get_event_loop()
         data = await loop.run_in_executor(None, ytdl.extract_info, url)
 
@@ -56,8 +56,8 @@ class Music:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def join(self, ctx, *, channel: discord.VoiceChannel):
+@commands.command()
+async def join(self, ctx, *, channel: discord.VoiceChannel):
         """Joins a voice channel"""
 
         if ctx.voice_client is not None:
@@ -65,8 +65,8 @@ class Music:
 
         await channel.connect()
 
-    @commands.command()
-    async def play(self, ctx, *, query):
+@commands.command()
+async def play(self, ctx, *, query):
         """Plays a file from the local filesystem"""
 
         if ctx.voice_client is None:
@@ -83,8 +83,8 @@ class Music:
 
         await ctx.send("Now playing: :sound: {}".format(query))
 
-    @commands.command()
-    async def yt(self, ctx, *, url):
+@commands.command()
+async def yt(self, ctx, *, url):
         """Streams from a url (almost anything youtube_dl supports)"""
 
         if ctx.voice_client is None:
@@ -101,8 +101,8 @@ class Music:
 
         await ctx.send('Now playing: {}'.format(player.title))
 
-    @commands.command()
-    async def volume(self, ctx, volume: int):
+@commands.command()
+async def volume(self, ctx, volume: int):
         """Changes the player's volume"""
 
         if ctx.voice_client is None:
@@ -111,8 +111,8 @@ class Music:
         ctx.voice_client.source.volume = volume
         await ctx.send("Changed volume to {}%".format(volume))
 
-    @commands.command()
-    async def stop(self, ctx):
+@commands.command()
+async def stop(self, ctx):
         """Stops and disconnects the bot from voice"""
 
         await ctx.voice_client.disconnect()
