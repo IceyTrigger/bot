@@ -334,6 +334,15 @@ async def invite(ctx):
 class MainCommands():
     def __init__(self, bot):
         self.bot = bot
+        
+@bot.command(pass_context = True)
+async def servers(self, ctx):
+    """Lists all servers the bot is on"""
+msg = ""
+for server in self.bot.servers:
+    name = str(server) + "\n"
+    msg += name
+await self.bot.say(msg)
 
     @bot.event
     async def on_ready():
