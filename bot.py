@@ -335,6 +335,23 @@ async def invite(ctx):
 class MainCommands():
     def __init__(self, bot):
         self.bot = bot
+        
+@bot.command(pass_context = True)
+async def shutdown(self, ctx):
+    if ctx.message.author.id == 293159670040887297:
+        await self .bot.say("[y/n] Are you sure you want to stop the bot?\nIt will have to be started again manually.")
+        answer = await self.bot.wait_for_message(timeout = 30, author=ctx.message.author)
+        answer = str(answer)
+        if answer.lower() in ("y", "yes"):
+            await self.bot.say("Dictionoid shutting down...")
+            await self.bot.logout()
+            exit()
+        elif answer.lower() in ("n", "no"):
+            await self.bot.say("Bot not stopped!")
+        else:
+            await self.bot.say("Invalid answer! Bot not stopped!")
+    else:
+        await self.bot.say("You don't have permission to do that!")
 
     @bot.event
     async def on_ready():
