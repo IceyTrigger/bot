@@ -281,23 +281,6 @@ async def wiki(ctx, *, search: str = None):
         emb.add_field(name="Wikipedia Results", value=textList[0] + "...")
         await ctx.send(embed=emb)
         
-@bot.command(pass_context=True, hidden=True)
-async def botleavep(ctx, serverid: str):
-    '''Leave server(BOT OWNER ONLY)
-    example:
-    -----------
-    :leaveserver 102817255661772800
-    '''
-    server = bot.get_server(serverid)
-    if server:
-        await bot.leave_server(server)
-        msg = ':door:  {} = Left server!'.format(server.name)
-    else:
-        msg1 = ':x: Could not find the ID of that server/Forgot to say ID of server!'
-return await ctx.say(msg)
-       await ctx.say(msg)
-
-
 @bot.command(pass_context=True, hidden=True, name='eval')
 @commands.is_owner()
 async def _eval(ctx, *, body: str):
