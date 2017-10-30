@@ -346,7 +346,7 @@ async def shutdown(self, ctx):
             await self.bot.say("Dictionoid shutting down...")
             await self.bot.logout()
             exit()
-        else: answer.lower() in ("n", "no"):
+        else: answer.lower() in ("n", "no")
             await self.bot.say("Bot not stopped!")
         else:
             await self.bot.say("Invalid answer! Bot not stopped!")
