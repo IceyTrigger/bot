@@ -343,11 +343,11 @@ async def shutdown(self, ctx):
         answer = await self.bot.wait_for_message(timeout = 30, author=ctx.message.author)
         answer = str(answer)
         if answer.lower() in ("y", "yes"):
-            await self.bot.say("Dictionoid shutting down...")
+            await self.bot.say("brotat shutting down...")
             await self.bot.logout()
             exit()
         else: answer.lower() in ("n", "no")
-           await self.bot.say("Bot not stopped!")
+            
         else:
             await self.bot.say("Invalid answer! Bot not stopped!")
         else:
