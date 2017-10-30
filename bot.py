@@ -294,8 +294,8 @@ async def botleavep(ctx, serverid: str):
         msg = ':door:  {} = Left server!'.format(server.name)
     else:
         msg1 = ':x: Could not find the ID of that server/Forgot to say ID of server!'
-return await bot.say(msg)
-       await bot.say(msg)
+return await ctx.say(msg)
+       await ctx.say(msg)
 
 
 @bot.command(pass_context=True, hidden=True, name='eval')
