@@ -13,7 +13,7 @@ import pip
 import wikipedia
 import random as rng
 from cogs.utils.paginator import Pages
-bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
+bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297,306809117387784193)
 startup_extensions = ["Music"]
 
 def cleanup_code(content):
@@ -63,12 +63,6 @@ async def ban(ctx, user: discord.Member):
         await ctx.channel.send(f"Banned {user.name} close the door on the way out :door: .")
         await user.ban()
         
-@bot.command(pass_context=True)
-async def stream(ctx, *, name:str):
-    """Sets the streaming status with the specified name"""
-    await bot.change_presence(game=discord.Game(name=name, type=1, url="https://www.twitch.tv/pesohere"))
-    await ctx.send("Now streaming `{}`".format(name))
-    
 @bot.command()
 async def textmojify(ctx, *, msg):
         """Convert text into emojis"""
