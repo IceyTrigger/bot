@@ -13,7 +13,7 @@ import pip
 import wikipedia
 import random as rng
 from cogs.utils.paginator import Pages
-bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297,306809117387784193)
+bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
 startup_extensions = ["Music"]
 
 def cleanup_code(content):
