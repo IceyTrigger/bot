@@ -63,25 +63,56 @@ async def ban(ctx, user: discord.Member):
         await ctx.channel.send(f"Banned {user.name} close the door on the way out :door: .")
         await user.ban()
         
-@bot.command()
-async def textmojify(ctx, *, msg):
-        """Convert text into emojis"""
-        try:
-            await ctx.message.delete()
-        except discord.Forbidden:
-            pass
-
-        if msg != None:
-            text = msg.lower().replace(' ', '    ').replace('10', ':keycap_ten:').replace('ab', ':ab:').replace('cl', ':cl:').replace('0', ':zero:').replace('1', ':one:').replace('2', ':two:').replace('3', ':three:').replace('4', ':four:').replace('5', ':five:').replace('6', ':six:').replace('7', ':seven:').replace('8', ':eight:').replace('9', ':nine:').replace('!', ':exclamation:').replace('?', ':grey_question:').replace('vs', ':vs:').replace('.', ':small_orange_diamond:').replace(',', ':small_red_triangle_down:').replace('a', ':a:').replace('b', ':b:').replace('c', ':regional_indicator_c:').replace('d', ':regional_indicator_d:').replace('e', ':regional_indicator_e:').replace('f', ':regional_indicator_f:').replace('g', ':regional_indicator_g:').replace('h', ':regional_indicator_h:').replace('i', ':regional_indicator_i:').replace('j', ':regional_indicator_j:').replace('k', ':regional_indicator_k:').replace('l', ':regional_indicator_l:').replace('m', ':regional_indicator_m:').replace('n', ':regional_indicator_n:').replace('o', ':o2:').replace('p', ':parking:').replace('q', ':regional_indicator_q:').replace('r', ':regional_indicator_r:').replace('s', ':regional_indicator_s:').replace('t', ':regional_indicator_t:').replace('u', ':regional_indicator_u:').replace('v', ':regional_indicator_v:').replace('w', ':regional_indicator_w:').replace('x', ':regional_indicator_x:').replace('y', ':regional_indicator_y:').replace('z', ':regional_indicator_z:')
-            await ctx.send(text)
-        else:
-            await ctx.send('Write something, reee!', delete_after=3.0)
+@bot.command(pass_context = True)
+async def play(ctx, url):
+    global playing
+    playing = False
+    channel = ctx.message.author.voice_channel    
+    if client.is_voice_connected(ctx.message.server):
+        embed = discord.Embed(title = "Already Connected!", description = "The bot is already connected to a voice channel!", color = 0xFF0000)
+        return await client.say(embed = embed)
+    voice = await client.join_voice_channel(channel)
+    global player
+    player = await voice.create_ytdl_player(url)
+    player.start()
+    playing = True
+    embed = discord.Embed(color = embed_color)
+    embed.add_field(name="Now Playing:", value=player.title, inline=True)
+    embed.add_field(name="Requested By:", value=ctx.message.author, inline=True)
+    embed.add_field(name="Duration (Seconds):", value=player.duration, inline=True)
+    embed.add_field(name="Views:", value=player.views, inline=True)
+    await client.say(embed = embed)
     
-@bot.command(pass_context=True)
-async def gif(ctx):
-    """Random dance gif"""
-    embed = discord.Embed()
-    Dance = [ 'https://images-ext-1.discordapp.net/external/EdfKUPKJyFnpwIS1XsEg5Dxqs9YUj5HjejPD_1zbFN8/https/cdn.boobbot.us/Gifs/gif291.gif', 'https://images-ext-2.discordapp.net/external/Kki29Ze4XZyN7qUzdEMUsy48AII2Z1l7OhvLV4sIboM/https/cdn.boobbot.us/Gifs/gif643.gif', 'https://images-ext-1.discordapp.net/external/98Og-y3AwaqOHBbse9R--70kxr2PVERtbJ163VtMI98/https/cdn.boobbot.us/Gifs/gif459.gif', 'https://images-ext-1.discordapp.net/external/n35L5QA62j_RDOG7oek6VqNc0VjYRz4iC5nrd4eJaR0/https/cdn.boobbot.us/Gifs/gif473.gif', 'https://images-ext-1.discordapp.net/external/SbbAakQHuoz_FVQ1oiwjYT3BIPUGruCPNlzqGZm4ynM/https/cdn.boobbot.us/Gifs/gif835.gif', 'https://images-ext-2.discordapp.net/external/TAQ25XBvQuzh8UU85erfOzBfjR6aJgxUkJ6RNeWN_bo/https/cdn.boobbot.us/Gifs/gif610.gif', 'https://images-ext-2.discordapp.net/external/s9Xfo-tqLs1GxDS9VYelA6rCQ_cVYG5ew2d4o7oF-yg/https/cdn.boobbot.us/Gifs/gif638.gif', 'https://images-ext-2.discordapp.net/external/kBs4WaRA_56bqovUdrXIIPEWtuFb4z18mdyth2ySUXA/https/cdn.boobbot.us/Gifs/gif632.gif', 'https://images-ext-1.discordapp.net/external/mYXGOovRdUevu9pbxZzqHoe3du1Adr5gnp9z1wNmEZM/https/cdn.boobbot.us/Gifs/gif345.gif', 'https://images-ext-1.discordapp.net/external/YlP3ejdO60FvZZzu8j7gKVUY8Xxx4xhRE5Ivfvj8TxU/https/cdn.boobbot.us/Gifs/gif192.gif', 'https://images-ext-2.discordapp.net/external/4MWt5pt_UkpCSVuocXWvJnkrB2cCQNxdEH2eozBEGEA/https/cdn.boobbot.us/Gifs/gif982.gif']
+@client.command(pass_context = True)
+async def stop(ctx):
+    if client.is_voice_connected(ctx.message.server):
+        embed2 = discord.Embed(description = "Stopping..", color = embed_color)
+        await client.say(embed = embed2)
+        player.stop()
+        playing = False
+    else:
+        embed = discord.Embed(description = "Not connected to a voice channel!", color = embed_color)
+        await client.say(embed = embed)
+        
+@client.command(pass_context = True)
+async def pause(ctx):
+    if client.is_voice_connected(ctx.message.server):
+        embed = discord.Embed(description = "Paused!", color = embed_color)
+        await client.say(embed = embed)
+        player.pause()
+    else:
+        embed = discord.Embed(description = "Not connected to a voice channel!", color = embed_color)
+        await client.say(embed = embed)
+        
+@client.command(pass_context = True)
+async def resume(ctx):
+    if client.is_voice_connected(ctx.message.server):
+        embed = discord.Embed(description = "Resuming the song!", color = embed_color)
+        await client.say(embed = embed)
+        player.resume()
+    else:
+        embed = discord.Embed(description = "Not connected to a voice channel!", color = embed_color)
+        await client.say(embed = embed)
         
 @bot.command(pass_context = True, aliases=['sinfo', 'si'])
 async def serverinfo(ctx):
