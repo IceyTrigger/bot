@@ -83,7 +83,7 @@ async def play(ctx, url):
     embed.add_field(name="Views:", value=player.views, inline=True)
     await client.say(embed = embed)
     
-@client.command(pass_context = True)
+@bot.command(pass_context = True)
 async def stop(ctx):
     if client.is_voice_connected(ctx.message.server):
         embed2 = discord.Embed(description = "Stopping..", color = embed_color)
@@ -94,7 +94,7 @@ async def stop(ctx):
         embed = discord.Embed(description = "Not connected to a voice channel!", color = embed_color)
         await client.say(embed = embed)
         
-@client.command(pass_context = True)
+@bot.command(pass_context = True)
 async def pause(ctx):
     if client.is_voice_connected(ctx.message.server):
         embed = discord.Embed(description = "Paused!", color = embed_color)
@@ -104,7 +104,7 @@ async def pause(ctx):
         embed = discord.Embed(description = "Not connected to a voice channel!", color = embed_color)
         await client.say(embed = embed)
         
-@client.command(pass_context = True)
+@bot.command(pass_context = True)
 async def resume(ctx):
     if client.is_voice_connected(ctx.message.server):
         embed = discord.Embed(description = "Resuming the song!", color = embed_color)
