@@ -68,10 +68,10 @@ async def play(ctx, url):
     global playing
     playing = False
     channel = ctx.message.author.voice_channel    
-    if client.is_voice_connected(ctx.message.server):
+    if bot.is_voice_connected(ctx.message.server):
         embed = discord.Embed(title = "Already Connected!", description = "The bot is already connected to a voice channel!", color = 0xFF0000)
-        return await client.say(embed = embed)
-    voice = await client.join_voice_channel(channel)
+        return await bot.say(embed = embed)
+    voice = await bot.join_voice_channel(channel)
     global player
     player = await voice.create_ytdl_player(url)
     player.start()
@@ -85,7 +85,7 @@ async def play(ctx, url):
     
 @bot.command(pass_context = True)
 async def stop(ctx):
-    if client.is_voice_connected(ctx.message.server):
+    if bot.is_voice_connected(ctx.message.server):
         embed2 = discord.Embed(description = "Stopping..", color = embed_color)
         await client.say(embed = embed2)
         player.stop()
@@ -96,9 +96,9 @@ async def stop(ctx):
         
 @bot.command(pass_context = True)
 async def pause(ctx):
-    if client.is_voice_connected(ctx.message.server):
+    if bot.is_voice_connected(ctx.message.server):
         embed = discord.Embed(description = "Paused!", color = embed_color)
-        await client.say(embed = embed)
+        await bot.say(embed = embed)
         player.pause()
     else:
         embed = discord.Embed(description = "Not connected to a voice channel!", color = embed_color)
@@ -106,9 +106,9 @@ async def pause(ctx):
         
 @bot.command(pass_context = True)
 async def resume(ctx):
-    if client.is_voice_connected(ctx.message.server):
+    if bot.is_voice_connected(ctx.message.server):
         embed = discord.Embed(description = "Resuming the song!", color = embed_color)
-        await client.say(embed = embed)
+        await bot.say(embed = embed)
         player.resume()
     else:
         embed = discord.Embed(description = "Not connected to a voice channel!", color = embed_color)
