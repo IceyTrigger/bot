@@ -50,6 +50,13 @@ async def latency(ctx):
         await message.edit(delete_after = 15)
         await ctx.message.delete()
         
+@bot.command(pass_context = True)
+async def now(ctx):
+    date = datetime.datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M %p")
+    embed = discord.Embed(color = embed_color)
+    embed.add_field(name="Bot's System Date & Time", value=date, inline=False)
+    await bot.say(embed=embed)
+        
         
 @bot.command()
 @commands.has_permissions(kick_members = True)
