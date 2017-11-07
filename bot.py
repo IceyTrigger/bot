@@ -233,6 +233,7 @@ async def avatar(self, ctx, *, member: discord.Member = None):
         await ctx.send(embed=em)
      
 @bot.command()
+@commands.has_permissions(kick_members= True)
 async def warn(ctx, user: discord.Member=None, reason=None):
         '''Warn a member\n Use Double Quotes " When Using Spaces In Reason'''
         warning = 'You have been warned in **{}** by **{}** for: **{}**'
