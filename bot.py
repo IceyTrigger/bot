@@ -51,7 +51,7 @@ async def latency(ctx):
         await ctx.message.delete()
         
 @bot.command(pass_context = True)
-async def now(ctx):
+async def time(ctx):
     date = datetime.datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M %p")
     embed = discord.Embed(color = embed_color)
     embed.add_field(name="Bot's System Date & Time", value=date, inline=False)
