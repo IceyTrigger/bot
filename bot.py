@@ -186,15 +186,10 @@ async def ud(*msg):
                 embed.add_field(name="Examples:", value=response['list'][0]["example"][:1000])
                 embed.set_footer(text="Tags: " + ', '.join(response['tags']))
                 await bot.say(embed=embed)
-                
-@commands.command(no_pm=True)
-async def clean(ctx, limit: int = 15):
-        '''Clean a number of bot's messages'''
-        await ctx.message.delete()
-        deleted = await ctx.channel.purge(limit=limit + 1, check=lambda m: m.author == ctx.bot.user)
-        await ctx.channel.send(f'Successfully deleted {len(deleted)} message(s)', delete_after=5)
+              
         
 @bot.command(aliases=['del', 'p', 'prune'], bulk=True)
+@commands.has_permissions(kick_members = True)
 async def purge(ctx, limit: int):
         '''Clean a number of messages'''
         await ctx.message.delete()
