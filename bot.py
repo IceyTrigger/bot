@@ -13,6 +13,8 @@ import pip
 import wikipedia
 import random as rng
 import youtube_dl
+import math
+import operator
 from cogs.utils.paginator import Pages
 bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
 
@@ -50,6 +52,50 @@ async def format_mod_embed(self, ctx, user, success, method, duration = None, lo
         if success:
             if method == 'ban' or method == 'hackban':
                 emb.description = f'{user} was just {method}ned.'
+                
+@bot.command(aliases=['calc', 'maths'])
+async def calculate(ctx, *, formula=None):
+        """
+        Do some real math
+        finally a working command for mathematics
+        thanks to Paul McGuire's fourFn.py module
+        """
+        person = ctx.message.author
+        user = ctx.author
+
+        if formula == None:
+            # How can it calculate an empty message? Reee!
+            msg = f'\u200BUsage: `{ctx.prefix}{ctx.invoked_with} [any maths formula]`'
+            e = discord.Embed()
+            e.color = await ctx.get_dominant_color(user.avatar_url)
+            e.description = f'{msg}'
+            await ctx.send(embed=e)
+            return
+
+        try:
+            answer=bot.nsp.eval(formula)
+        except:
+            # If there's a problem in the input, show examples
+            msg = f'\N{THINKING FACE} wrong {formula} input.\nTry any of these:'
+            e = discord.Embed()
+            e.color = await ctx.get_dominant_color(user.avatar_url)
+            e.description = f'\u200B{msg}'
+            e.add_field(name='multiplication', value="`num` * `num`", inline=True)
+            e.add_field(name='division', value="`num` / `num`", inline=True)
+            e.add_field(name='addition', value="`num` + `num`", inline=True)
+            e.add_field(name='rest', value="`num` - `num`", inline=True)
+            e.add_field(name='exponential', value="`num` ^ `num`")
+            e.add_field(name='integer', 
+                        value="[`num` + `num` | `num` - `num`] `num` 0 `num`..`num` 9 `num` +")
+            await ctx.send(embed=e, delete_after=60)
+            return
+
+        # Correct input prints correct answer
+        e = discord.Embed()
+        e.color = await ctx.get_dominant_color(user.avatar_url)
+        e.add_field(name='Input:', value=f'```{formula}```', inline=True)
+        e.add_field(name='Result:', value=f'```{round(answer, 2)}```', inline=True)
+        await ctx.send(embed=e)
                 
 @bot.command(name='presence')
 @commands.is_owner()
