@@ -94,7 +94,7 @@ async def textmojify(self, ctx, *, msg):
             except Exception as e:
                 await ctx.send(f'```{e}```')
         else:
-            await ctx.send('Write something, reee!', delete_after=3.0)
+                await ctx.send('Write something, reee!', delete_after=3.0)
         
 @bot.command(no_pm = True, aliases = ['ping'])
 async def latency(ctx):
