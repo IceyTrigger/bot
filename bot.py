@@ -40,6 +40,43 @@ def get_prefix(bot, message):
 
 bot = commands.Bot(command_prefix=get_prefix)
 
+
+async def format_mod_embed(self, ctx, user, success, method, duration = None, location=None):
+        '''Helper func to format an embed to prevent extra code'''
+        emb = discord.Embed()
+        emb.set_author(name=method.title(), icon_url=user.avatar_url)
+        emb.color = await ctx.get_dominant_color(user.avatar_url)
+        emb.set_footer(text=f'User ID: {user.id}')
+        if success:
+            if method == 'ban' or method == 'hackban':
+                emb.description = f'{user} was just {method}ned.'
+                
+class Mod:
+
+    def __init__(self, bot):
+        self.bot = bot
+                
+@bot.command()
+async def hackban(self, ctx, userid, *, reason=None):
+        '''Ban someone not in the server'''
+        try:
+            userid = int(userid)
+        except:
+            await ctx.send('Invalid ID!')
+        
+        try:
+            await ctx.guild.ban(discord.Object(userid), reason=reason)
+        except:
+            success = False
+        else:
+            success = True
+
+        if success:
+            async for entry in ctx.guild.audit_logs(limit=1, user=ctx.guild.me, action=discord.AuditLogAction.ban):
+                emb = await self.format_mod_embed(ctx, entry.target, success, 'hackban')
+        else:
+            emb = await self.format_mod_embed(ctx, userid, success, 'hackban')
+        await ctx.send(embed=emb)
 @bot.command(no_pm = True, aliases = ['ping'])
 async def latency(ctx):
         pingms = "{}".format(int(bot.latency * 1000))
