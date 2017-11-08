@@ -57,26 +57,45 @@ class Mod:
         self.bot = bot
                 
 @bot.command()
-async def hackban(self, ctx, userid, *, reason=None):
-        '''Ban someone not in the server'''
+async def textmojify(self, ctx, *, msg):
+        """Convert text into emojis"""
         try:
-            userid = int(userid)
-        except:
-            await ctx.send('Invalid ID!')
-        
-        try:
-            await ctx.guild.ban(discord.Object(userid), reason=reason)
-        except:
-            success = False
-        else:
-            success = True
+            await ctx.message.delete()
+        except discord.Forbidden:
+            pass
 
-        if success:
-            async for entry in ctx.guild.audit_logs(limit=1, user=ctx.guild.me, action=discord.AuditLogAction.ban):
-                emb = await self.format_mod_embed(ctx, entry.target, success, 'hackban')
+        if msg != None:
+            out = msg.lower()
+            text = out.replace(' ', '    ').replace('10', '\u200B:keycap_ten:')\
+                      .replace('ab', '\u200B🆎').replace('cl', '\u200B🆑')\
+                      .replace('0', '\u200B:zero:').replace('1', '\u200B:one:')\
+                      .replace('2', '\u200B:two:').replace('3', '\u200B:three:')\
+                      .replace('4', '\u200B:four:').replace('5', '\u200B:five:')\
+                      .replace('6', '\u200B:six:').replace('7', '\u200B:seven:')\
+                      .replace('8', '\u200B:eight:').replace('9', '\u200B:nine:')\
+                      .replace('!', '\u200B❗').replace('?', '\u200B❓')\
+                      .replace('vs', '\u200B🆚').replace('.', '\u200B🔸')\
+                      .replace(',', '🔻').replace('a', '\u200B🅰')\
+                      .replace('b', '\u200B🅱').replace('c', '\u200B🇨')\
+                      .replace('d', '\u200B🇩').replace('e', '\u200B🇪')\
+                      .replace('f', '\u200B🇫').replace('g', '\u200B🇬')\
+                      .replace('h', '\u200B🇭').replace('i', '\u200B🇮')\
+                      .replace('j', '\u200B🇯').replace('k', '\u200B🇰')\
+                      .replace('l', '\u200B🇱').replace('m', '\u200B🇲')\
+                      .replace('n', '\u200B🇳').replace('ñ', '\u200B🇳')\
+                      .replace('o', '\u200B🅾').replace('p', '\u200B🅿')\
+                      .replace('q', '\u200B🇶').replace('r', '\u200B🇷')\
+                      .replace('s', '\u200B🇸').replace('t', '\u200B🇹')\
+                      .replace('u', '\u200B🇺').replace('v', '\u200B🇻')\
+                      .replace('w', '\u200B🇼').replace('x', '\u200B🇽')\
+                      .replace('y', '\u200B🇾').replace('z', '\u200B🇿')
+            try:
+                await ctx.send(text)
+            except Exception as e:
+                await ctx.send(f'```{e}```')
         else:
-            emb = await self.format_mod_embed(ctx, userid, success, 'hackban')
-        await ctx.send(embed=emb)
+            await ctx.send('Write something, reee!', delete_after=3.0)
+        
 @bot.command(no_pm = True, aliases = ['ping'])
 async def latency(ctx):
         pingms = "{}".format(int(bot.latency * 1000))
@@ -86,14 +105,6 @@ async def latency(ctx):
         await message.edit(content = f"Pong! - My latency is **{pings}**s | **{pingms}**ms")
         await message.edit(delete_after = 15)
         await ctx.message.delete()
-        
-@bot.command(pass_context = True)
-async def time(ctx):
-    date = datetime.datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M %p")
-    embed = discord.Embed(color = embed_color)
-    embed.add_field(name="Bot's System Date & Time", value=date, inline=False)
-    await bot.say(embed=embed)
-        
         
 @bot.command()
 @commands.has_permissions(kick_members = True)
