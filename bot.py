@@ -46,6 +46,11 @@ class Mod:
 
     def __init__(self, bot):
         self.bot = bot
+        
+@commands.command()
+async def uptime(self, ctx):
+        """Tells you how long the bot has been up for."""
+        await ctx.send(f'Uptime: **{self.get_bot_uptime()}**')
 
     async def format_mod_embed(self, ctx, user, success, method, duration = None, location=None):
         '''Helper func to format an embed to prevent extra code'''
