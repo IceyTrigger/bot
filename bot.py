@@ -73,7 +73,7 @@ class Mod:
         return emb
     
 @bot.command()
-    async def hackban(self, ctx, userid, *, reason=None):
+async def hackban(self, ctx, userid, *, reason=None):
         '''Ban someone not in the server'''
         try:
             userid = int(userid)
