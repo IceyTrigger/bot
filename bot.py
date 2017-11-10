@@ -53,6 +53,16 @@ async def format_mod_embed(self, ctx, user, success, method, duration = None, lo
             if method == 'ban' or method == 'hackban':
                 emb.description = f'{user} was just {method}ned.'
                 
+                   
+@bot.command(pass_context = True)
+@command.is_owner()
+async def shutdown(ctx):
+    timestamp = ctx.message.timestamp                         
+    embed=discord.Embed(title='Restarting', description='See you later', color=0xed, timestamp=timestamp)
+    embed.set_footer(text='brotat will be back')
+    await bot.say(embed=embed)
+    await bot.logout()
+                
 @bot.command(aliases=['calc', 'maths'])
 async def calculate(ctx, *, formula=None):
         """
