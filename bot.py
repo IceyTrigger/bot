@@ -18,6 +18,11 @@ import operator
 from cogs.utils.paginator import Pages
 bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
 
+dev_list = [
+    293159670040887297,
+    306809117387784193
+]
+
 def cleanup_code(content):
     """Automatically removes code blocks from the code."""
     # remove ```py\n```
@@ -405,7 +410,7 @@ async def wiki(ctx, *, search: str = None):
 @commands.is_owner()
 async def _eval(ctx, *, body: str):
         """Evaluates a code"""
-
+        if ctx.author.id in dev_list:
         env = {
             'bot': bot,
             'ctx': ctx,
