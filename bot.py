@@ -410,8 +410,8 @@ async def wiki(ctx, *, search: str = None):
 @commands.is_owner()
 async def _eval(ctx, *, body: str):
         """Evaluates a code"""
-    if ctx.author.id in dev_list
-        env = {
+     if ctx.author.id in dev_list:
+            env = {
             'bot': bot,
             'ctx': ctx,
             'channel': ctx.channel,
