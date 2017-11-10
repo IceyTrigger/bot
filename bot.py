@@ -411,7 +411,7 @@ async def wiki(ctx, *, search: str = None):
 async def _eval(ctx, *, body: str):
         """Evaluates a code"""
         
-            env = {
+        env = {
             'bot': bot,
             'ctx': ctx,
             'channel': ctx.channel,
