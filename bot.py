@@ -55,7 +55,7 @@ async def format_mod_embed(self, ctx, user, success, method, duration = None, lo
                 
                    
 @bot.command(pass_context = True)
-@command.is_owner()
+@commands.is_owner()
 async def shutdown(ctx):
     timestamp = ctx.message.timestamp                         
     embed=discord.Embed(title='Restarting', description='See you later', color=0xed, timestamp=timestamp)
