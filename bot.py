@@ -67,28 +67,6 @@ async def shutdown(ctx):
     embed.set_footer(text='brotat will be back')
     await bot.say(embed=embed)
     await bot.logout()
-                
-@bot.command()
-@commands.has_permissions(kick_members=True)
-async def softban(ctx, member: MemberID, *, reason: ActionReason = None):
-        """Soft bans a member from the server.
-
-        A softban is basically banning the member from the server but
-        then unbanning the member as well. This allows you to essentially
-        kick the member while removing their messages.
-
-        In order for this to work, the bot must have Ban Member permissions.
-
-        To use this command you must have Kick Members permissions.
-        """
-
-        if reason is None:
-            reason = f'Action done by {ctx.author} (ID: {ctx.author.id})'
-
-        obj = discord.Object(id=member)
-        await ctx.guild.ban(obj, reason=reason)
-        await ctx.guild.unban(obj, reason=reason)
-        await ctx.send('\N{OK HAND SIGN}')
         
 @bot.command(aliases=['calc', 'maths'])
 async def calculate(ctx, *, formula=None):
