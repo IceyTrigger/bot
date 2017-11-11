@@ -61,7 +61,7 @@ async def format_mod_embed(self, ctx, user, success, method, duration = None, lo
 @bot.command()
 @commands.guild_only()
 @commands.has_permissions(ban_members=True)
-async def unban(ctx,*):
+async def unban(ctx):
         """Unbans a member from the server.
 
         You can pass either the ID of the banned member or the Name#Discrim
