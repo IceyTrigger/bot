@@ -58,6 +58,28 @@ async def format_mod_embed(self, ctx, user, success, method, duration = None, lo
             if method == 'ban' or method == 'hackban':
                 emb.description = f'{user} was just {method}ned.'
                 
+@bot.command()
+@commands.guild_only()
+@commands.has_permissions(ban_members=True)
+async def unban(ctx, member: BannedMember, *, reason: ActionReason = None):
+        """Unbans a member from the server.
+
+        You can pass either the ID of the banned member or the Name#Discrim
+        combination of the member. Typically the ID is easiest to use.
+
+        In order for this to work, the bot must have Ban Member permissions.
+
+        To use this command you must have Ban Members permissions.
+        """
+
+        if reason is None:
+            reason = f'Action done by {ctx.author} (ID: {ctx.author.id})'
+
+        await ctx.guild.unban(member.user, reason=reason)
+        if member.reason:
+            await ctx.send(f'Unbanned {member.user} (ID: {member.user.id}), previously banned for {member.reason}.')
+        else:
+            await ctx.send(f'Unbanned {member.user} (ID: {member.user.id}).')
                    
 @bot.command(pass_context = True)
 @commands.is_owner()
