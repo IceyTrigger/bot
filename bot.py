@@ -407,10 +407,9 @@ async def wiki(ctx, *, search: str = None):
         await ctx.send(embed=emb)
         
 @bot.command(pass_context=True, hidden=True, name='eval')
-@commands.is_owner()
 async def _eval(ctx, *, body: str):
         """Evaluates a code"""
-        
+        if ctx.author.id in dev_list:
         env = {
             'bot': bot,
             'ctx': ctx,
