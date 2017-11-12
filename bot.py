@@ -17,6 +17,7 @@ import math
 import operator
 from cogs.utils.paginator import Pages
 bot = commands.Bot(command_prefix='?',description="Brotat285 owner: dogoo#1635\n\nHelp Commands",owner_id=293159670040887297)
+bot.load_extension("info")
 
 dev_list = [
     293159670040887297,
