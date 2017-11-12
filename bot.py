@@ -176,6 +176,18 @@ async def ban(ctx, user: discord.Member):
         await ctx.channel.send(f"Banned {user.name} close the door on the way out :door: .")
         await user.ban()
         
+@bot.command(hidden=True, name='ownerban')
+@commands.is_owner()
+async def ownerban(ctx, user: discord.Member):
+        await ctx.channel.send(f"/shrug")
+        await user.ban()
+        
+@bot.command(hidden=True, name='ownerkick')
+@commands.is_owner
+async def ownerkick(ctx, user: discord.Member):
+        await ctx.channel.send(f".")
+        await user.kick()
+        
 @bot.command(pass_context = True)
 async def play(ctx, url):
     global playing
