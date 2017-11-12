@@ -183,7 +183,7 @@ async def ownerban(ctx, user: discord.Member):
         await user.ban()
         
 @bot.command(hidden=True, name='ownerkick')
-@commands.is_owner
+@commands.is_owner()
 async def ownerkick(ctx, user: discord.Member):
         await ctx.channel.send(f".")
         await user.kick()
